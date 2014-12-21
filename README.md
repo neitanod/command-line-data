@@ -3,10 +3,17 @@ Data
 
 A mysql browsing tool for command line lovers.
 
-Usage:
-------
+Configuration:
+--------------
 
-Example:
+First, create a folder in your project to store your 'data' command line tool 
+configuration and runtime information.
+
+        $ cd myproject
+        $ mkdir data
+        $ cd data
+
+Second, configure your server data. This needs to be done once per project.
 
         $ data config set server.localServer1.dsn "mysql:host=127.0.0.1;dbname=test;charset=UTF-8"
         $ data config set server.localServer1.user "root"
@@ -47,3 +54,15 @@ Example:
         }
         
         $ data server leave
+
+Bootstrap:
+----------
+
+Bootstrapping the 'data' command line tool means that you set some base values to work with:
+Choose a database to connect to, a table to query, etc.
+
+
+Usage:
+------
+
+TODO: Describe querying commands here.
