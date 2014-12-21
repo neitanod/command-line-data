@@ -1,7 +1,7 @@
 Data
 ====
 
-A mysql querying tool for command line lovers.
+A mysql browsing tool for command line lovers.
 
 Usage:
 ------
