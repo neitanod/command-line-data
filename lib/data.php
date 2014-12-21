@@ -1,4 +1,5 @@
 <?php 
+define("WORKING_PATH", getcwd());
 define("BASE_PATH", dirname(__FILE__));
 $command = isset($argv[1]) ? $argv[1] : 'help';
 
@@ -10,6 +11,10 @@ switch($command){
   case 'config':
     require_once(BASE_PATH.'/DataConfig.class.php');
     DataConfig::run($arguments);
+
+  break; case 'server':
+    require_once(BASE_PATH.'/DataServer.class.php');
+    DataServer::run($arguments);
 
   break; case 'help':
     echo file_get_contents(BASE_PATH.'/data-help.txt');

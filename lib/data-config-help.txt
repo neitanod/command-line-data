@@ -1,11 +1,12 @@
 Usage: data config <command> <arguments>
   
   Available commands:
-      help
-      view
-      set
-      get
-      remove
+      help     Shows this help screen.
+      show     Lists complete configuration.
+      set      Sets a configuration entry.
+      get      Gets a configuration entry.
+      remove   Removes an entry.
+      add      Adds an element to a configuration entry if it's an array. 
 
   Example:
       Add a server named "local" (can add several servers):
@@ -13,7 +14,7 @@ Usage: data config <command> <arguments>
         $ data config set server.local.dsn "mysql:host=127.0.0.1;dbname=test;charset=UTF-8"
         $ data config set server.local.user "root"
         $ data config set server.local.pass "secret"
-        $ data config view
+        $ data config show
 
         {
             "server": {

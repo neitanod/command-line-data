@@ -1,0 +1,32 @@
+Usage: data server <command> <arguments>
+  
+  Available commands:
+      help      Shows this help screen.
+      list      Shows configured servers.
+      use       Selects a server to connect to.
+      using     Shows the name of the server currently in use.
+      show      Shows current server's details.
+      leave     Leaves current server.
+
+  Example:
+      Add a server named "local" (can add several servers):
+
+        $ data server list
+        
+        MyLocalServer
+        MyRemoteServer
+        
+        $ data server use myLocalServer 
+        $ data server using
+        
+        MyLocalServer
+        
+        $ data server show
+        
+        {
+            "dsn": "mysql:host=127.0.0.1;dbname=test;charset=UTF-8",
+            "user": "root",
+            "pass": "secret"
+        }
+        
+        $ data server leave
