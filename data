@@ -1,0 +1,4 @@
+#!env bash
+command -v php >/dev/null 2>&1 || { echo >&2 "PHP not found.  Aborting."; exit 1; }
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+php $DIR/lib/data.php "$@"

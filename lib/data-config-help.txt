@@ -1,0 +1,27 @@
+Usage: data config <command> <arguments>
+  
+  Available commands:
+      help
+      view
+      set
+      get
+      remove
+
+  Example:
+      Add a server named "local" (can add several servers):
+
+        $ data config set server.local.dsn "mysql:host=127.0.0.1;dbname=test;charset=UTF-8"
+        $ data config set server.local.user "root"
+        $ data config set server.local.pass "secret"
+        $ data config view
+
+        {
+            "server": {
+                "local": {
+                    "dsn": "mysql:host=127.0.0.1;dbname=test;charset=UTF-8",
+                    "user": "root",
+                    "pass": "secret"
+                }
+            }
+        }
+

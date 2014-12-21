@@ -1,0 +1,5 @@
+Usage: data <command> <arguments>
+  
+  Available commands:
+      help
+      config
