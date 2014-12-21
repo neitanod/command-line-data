@@ -1,0 +1,26 @@
+Usage: data server <command> <arguments>
+  
+  Available commands:
+      help      Shows this help screen.
+      list      Shows databases in current server.
+      use       Selects a database to use.
+      using     Shows the name of the database currently in use.
+
+  Example:
+
+        $ data server list
+        
+        MyLocalServer
+        MyRemoteServer
+        
+        $ data server use myLocalServer 
+        $ data db list
+        
+        testing
+        staging
+        production
+        
+        $ data db use testing
+        $ data db using
+
+        testing

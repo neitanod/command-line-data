@@ -9,7 +9,6 @@ Usage: data server <command> <arguments>
       leave     Leaves current server.
 
   Example:
-      Add a server named "local" (can add several servers):
 
         $ data server list
         

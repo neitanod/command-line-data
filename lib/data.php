@@ -16,6 +16,10 @@ switch($command){
     require_once(BASE_PATH.'/DataServer.class.php');
     DataServer::run($arguments);
 
+  break; case 'db':
+    require_once(BASE_PATH.'/DataDB.class.php');
+    DataDB::run($arguments);
+
   break; case 'help':
     echo file_get_contents(BASE_PATH.'/data-help.txt');
   
