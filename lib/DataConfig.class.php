@@ -80,6 +80,20 @@ class DataConfig {
     return 1;
   }
 
+  public function entries($keys = "") {
+    $keys = explode(".", $keys);
+    $path = &$this->config;
+    foreach($keys as $key) {
+      if(!isset($path[$key])) return NULL;
+      $path = &$path[$key];
+    }
+    $o = "entries\n";
+    foreach($path as $k => $v){
+      $o .= $k."\n";
+    }
+    return $o;
+  }
+
   public function get($keys) {
     $keys = explode(".", $keys);
     $path = &$this->config;

@@ -9,46 +9,12 @@ class DataServer {
   use traitMultipleton; 
   use traitDataInstance; 
 
-  public static function run($arg, $options = array()){
-    $instance = static::getInstance();
-
-    $instance->working_path = empty($options['working_path'])?WORKING_PATH:$options['working_path'];
-    $base_path = empty($options['base_path'])?dirname(__FILE__):$options['base_path'];
-    $command = empty($arg[0])?'help':strtolower($arg[0]);
-    
-    switch($command){
-      case 'help':
-        echo file_get_contents($base_path.'/data-server-help.txt');
-
-      break; case 'use':
-        if(count($arg)!=2) return $instance->showError('Invalid number of arguments');
-        $instance->runUse($arg[1]);
-
-      break; case 'using':
-        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
-        $instance->runUsing();
-
-      break; case 'leave':
-        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
-        $instance->runLeave();
-
-      break; case 'list':
-        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
-        $instance->runList();
-
-      break; case 'show':
-        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
-        $instance->runShow();
-
-      break;
-    }
-
-  }
-
   public function runList(){
     $servers = $this->config()->get('server');
-    foreach ($servers as $k => $server){
-      echo $k."\n";
+    if(is_array($servers) && !empty($servers)) {
+      foreach ($servers as $k => $server){
+        echo $k."\n";
+      }
     }
   }
 

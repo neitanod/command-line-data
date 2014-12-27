@@ -1,0 +1,6 @@
+_data()
+{
+    CURR=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=($(compgen -W "`data autocomplete ${COMP_WORDS[*]}`" -- $CURR))
+}
+complete -F _data data 

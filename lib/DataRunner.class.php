@@ -11,10 +11,13 @@ class DataRunner {
     $program = array_shift($arg);
 
     switch($program){
-      case 'config':
+      case 'autocomplete':
+        static::autocomplete($arg, $options);
+      break; case 'config':
         static::config($arg, $options);
-      case 'help':
-      default:
+      break; case 'server':
+        static::server($arg, $options);
+      break; case 'help': default:
         echo file_get_contents(DOC_PATH.'/data-help.txt');
       break;
     }
@@ -55,4 +58,77 @@ class DataRunner {
     }
 
   }
+
+  public static function server($arg, $options = array()){
+    $instance = DataServer::getInstance();
+
+    $instance->working_path = empty($options['working_path'])?WORKING_PATH:$options['working_path'];
+    $base_path = empty($options['base_path'])?dirname(__FILE__):$options['base_path'];
+    $command = empty($arg[0])?'help':strtolower($arg[0]);
+    
+    switch($command){
+      case 'help':
+        echo file_get_contents(DOC_PATH.'/data-server-help.txt');
+
+      break; case 'use':
+        if(count($arg)!=2) return $instance->showError('Invalid number of arguments');
+        $instance->runUse($arg[1]);
+
+      break; case 'using':
+        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
+        $instance->runUsing();
+
+      break; case 'leave':
+        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
+        $instance->runLeave();
+
+      break; case 'list':
+        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
+        $instance->runList();
+
+      break; case 'show':
+        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
+        $instance->runShow();
+
+      break;
+    }
+
+  }
+
+  public static function autocomplete($arg, $options = array()){
+    $command = strtolower(array_shift($arg));
+    while($command==='data' || $command==='autocomplete'){
+      $command = strtolower(array_shift($arg));
+    }
+    $subcommand = array_shift($arg);
+    $instance = DataConfig::getInstance();
+    file_put_contents('out.txt', "COMMAND: ".$command . "\n". "SUBCOMMAND: ".$subcommand . "\n"."[".implode(',',$arg)."]\n");
+    switch($command){
+
+      case 'config':
+        switch($subcommand){
+          case 'remove':
+          case 'get':
+            $instance = DataConfig::getInstance();
+            echo $instance->entries();
+          break; case '': default:
+            echo 'help show set get remove add';
+          break; 
+        }
+
+      break; case 'server':
+        switch($subcommand){
+          case 'use':
+            $instance = DataServer::getInstance();
+            $instance->working_path = empty($options['working_path'])?WORKING_PATH:$options['working_path'];
+            $instance->runList();
+          break; case '': default:
+            echo 'help list use using show leave';
+        }
+      break; case '': default:
+        echo 'config server help';
+      break;
+    }
+
+  } 
 }
