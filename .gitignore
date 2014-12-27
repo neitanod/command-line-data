@@ -1,2 +1,3 @@
-.data.conf
-.data.instance
+out.txt
+data.conf
+data.session

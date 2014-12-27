@@ -17,6 +17,8 @@ class DataRunner {
         static::config($arg, $options);
       break; case 'server':
         static::server($arg, $options);
+      break; case 'db':
+        static::db($arg, $options);
       break; case 'help': default:
         echo file_get_contents(DOC_PATH.'/data-help.txt');
       break;
@@ -95,6 +97,41 @@ class DataRunner {
 
   }
 
+  public static function db($arg, $options = array()){
+    $instance = DataDB::getInstance();
+
+    $instance->working_path = empty($options['working_path'])?WORKING_PATH:$options['working_path'];
+    $command = empty($arg[0])?'help':strtolower($arg[0]);
+    
+    switch($command){
+      case 'list':
+        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
+        $instance->runList();
+
+      break; case 'use':
+        if(count($arg)!=2) return $instance->showError('Invalid number of arguments');
+        $instance->runUse($arg[1]);
+
+      break; case 'using':
+        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
+        $instance->runUsing();
+
+      break; case 'show':
+        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
+        $instance->runShow();
+
+      break; case 'leave':
+        if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
+        $instance->runLeave();
+
+      break; case 'help': default:
+        echo file_get_contents(DOC_PATH.'/data-db-help.txt');
+      
+      break; 
+    }
+
+  }
+
   public static function autocomplete($arg, $options = array()){
     $command = strtolower(array_shift($arg));
     while($command==='data' || $command==='autocomplete'){
@@ -125,8 +162,19 @@ class DataRunner {
           break; case '': default:
             echo 'help list use using show leave';
         }
+
+      break; case 'db':
+        switch($subcommand){
+          case 'use':
+            $instance = DataDB::getInstance();
+            $instance->working_path = empty($options['working_path'])?WORKING_PATH:$options['working_path'];
+            $instance->runList();
+          break; case '': default:
+            echo 'help list use using show leave';
+        }
+
       break; case '': default:
-        echo 'config server help';
+        echo 'config db server help';
       break;
     }
 

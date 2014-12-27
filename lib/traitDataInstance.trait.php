@@ -8,7 +8,7 @@ trait traitDataInstance {
   
   public function instanceData(){
     if(!isset($this->instanceData)) $this->instanceData = DataConfig::getInstance('instance');
-    $this->instanceData->currentConfigFilePath(WORKING_PATH.'/.data.instance');
+    $this->instanceData->currentConfigFilePath(WORKING_PATH.'/data.session');
     return $this->instanceData;
   }
 
