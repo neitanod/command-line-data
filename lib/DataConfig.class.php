@@ -7,52 +7,8 @@ class DataConfig {
   use traitMultipleton; 
 
   protected $working_path = WORKING_PATH;
-  protected $working_file = '.data.conf';
+  protected $working_file = 'data.conf';
   protected $config = array();
-
-  public static function run($arg, $options = array()){
-    $instance = static::getInstance();
-
-    $instance->working_path = empty($options['working_path'])?$instance->working_path:$options['working_path'];
-    if(!empty($options['working_file'])) $instance->working_file = $options['working_file'];
-
-    $base_path = empty($options['base_path'])?dirname(__FILE__):$options['base_path'];
-    $command = empty($arg[0])?'help':strtolower($arg[0]);
-    
-    /*
-    $instance_name = empty($options['instance'])?'default':$options['instance'];
-    $instance = static::getInstance();
-    */
-
-    switch($command){
-      case 'help':
-        echo file_get_contents($base_path.'/data-config-help.txt');
-
-      break; case 'show':
-        if(count($arg)>2) return $instance->showError('Invalid number of arguments');
-        $instance->runShow();
-
-      break; case 'set':
-        if(count($arg)!=3) return $instance->showError('Invalid number of arguments');
-        $instance->runSet($arg[1],$arg[2]);
-
-      break; case 'get':
-        if(count($arg)>2) return $instance->showError('Invalid number of arguments');
-        if(count($arg)==2) $instance->runGet($arg[1]);
-        if(count($arg)==1) $instance->runShow();
-
-      break; case 'add':
-        if(count($arg)!=3) return $instance->showError('Invalid number of arguments');
-        $instance->runAdd($arg[1],$arg[2]);
-
-      break; case 'remove':
-        if(count($arg)!=2) return self::showError('Invalid number of arguments');
-        $instance->runRemove($arg[1]);
-
-      break;
-    }
-
-  }
 
   protected function __construct(){
     $this->loadCurrentConfig();
