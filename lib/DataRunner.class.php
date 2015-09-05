@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once("constants.php");
 
 require_once(LIB_PATH.'/DataConfig.class.php');
@@ -67,7 +67,7 @@ class DataRunner {
     $instance->working_path = empty($options['working_path'])?WORKING_PATH:$options['working_path'];
     $base_path = empty($options['base_path'])?dirname(__FILE__):$options['base_path'];
     $command = empty($arg[0])?'help':strtolower($arg[0]);
-    
+
     switch($command){
       case 'help':
         echo file_get_contents(DOC_PATH.'/data-server-help.txt');
@@ -102,7 +102,7 @@ class DataRunner {
 
     $instance->working_path = empty($options['working_path'])?WORKING_PATH:$options['working_path'];
     $command = empty($arg[0])?'help':strtolower($arg[0]);
-    
+
     switch($command){
       case 'list':
         if(count($arg)!=1) return $instance->showError('Invalid number of arguments');
@@ -126,8 +126,8 @@ class DataRunner {
 
       break; case 'help': default:
         echo file_get_contents(DOC_PATH.'/data-db-help.txt');
-      
-      break; 
+
+      break;
     }
 
   }
@@ -150,7 +150,7 @@ class DataRunner {
             echo $instance->entries();
           break; case '': default:
             echo 'help show set get remove add';
-          break; 
+          break;
         }
 
       break; case 'server':
@@ -178,5 +178,5 @@ class DataRunner {
       break;
     }
 
-  } 
+  }
 }

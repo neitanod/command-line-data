@@ -46,11 +46,11 @@ class DFDB {
     $this->setUtf8 = $utf8;
   }
 
-  protected function createPDO() 
+  protected function createPDO()
   {
-    $this->pdo['pdo'] = new PDO($this->pdo['data']['dsn'], $this->pdo['data']['user'], $this->pdo['data']['pass'], 
+    $this->pdo['pdo'] = new PDO($this->pdo['data']['dsn'], $this->pdo['data']['user'], $this->pdo['data']['pass'],
                                 array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION) );
-    
+
     if($this->setUtf8){
       $this->queryOrException("SET NAMES 'utf8'");
     }
@@ -80,16 +80,16 @@ class DFDB {
   public function pdo(){
     if (empty($this->pdo['pdo']))
       $this->createPDO();
-    
+
     return $this->pdo['pdo'];
   }
 
   public function executeOrException($query, $params = array(), $driver_options = array()){
-    
+
     $statement = $this->prepare($query, $driver_options);
 
     $statement->execute($params);
-  
+
     $err = $statement->errorInfo();
 
     if(is_array($err) && isset($err[1]) && $err[1]) {
@@ -99,7 +99,7 @@ class DFDB {
       //throw new Exception(implode(" - ", $err) . "  \nQUERY: " . $query . "  \nParameters: " . var_export($params, 1));
     }
 
-    return $statement; 
+    return $statement;
 
   }
 

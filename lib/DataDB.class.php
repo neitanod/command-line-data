@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once("constants.php");
 
 require_once(LIB_PATH.'/DataConfig.class.php');
@@ -8,8 +8,8 @@ require_once(LIB_PATH.'/traitDataInstance.trait.php');
 require_once(LIB_PATH.'/vendor/DFDB.class.php');
 
 class DataDB {
-  use traitMultipleton; 
-  use traitDataInstance; 
+  use traitMultipleton;
+  use traitDataInstance;
 
   public function db(){
     if(empty($this->db)) {
@@ -21,7 +21,7 @@ class DataDB {
       if(empty($servers[$server]['dsn'])) return $this->showError("Selected server 'dsn' string not configured:  data config set server.$server.dsn <dsn>");
       if(empty($servers[$server]['user'])) return $this->showError("Selected server 'user' not configured:  data config set server.$server.user <dsn>");
       if(empty($servers[$server]['pass'])) return $this->showError("Selected server 'pass' not configured:  data config set server.$server.pass <dsn>");
-  
+
       $this->db = DFDB::getInstance(
         $servers[$server]['dsn'],
         $servers[$server]['user'],
@@ -66,7 +66,7 @@ class DataDB {
   public function using(){
     return $this->instanceData()->get('db-using');
   }
-  
+
   public function details($db = NULL){
     if(is_null($db)) $db = $this->using();
     $info = $this->db()->executeOrException("SELECT * FROM information_schema.SCHEMATA WHERE schema_name = ?", array($this->using()))->fetchAll(PDO::FETCH_ASSOC);
@@ -80,5 +80,4 @@ class DataDB {
     return 1;
   }
 
-  
 }

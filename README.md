@@ -6,7 +6,7 @@ A mysql browsing tool for command line lovers.
 Configuration:
 --------------
 
-First, create a folder in your project to store your 'data' command line tool 
+First, create a folder in your project to store your 'data' command line tool
 configuration and runtime information.
 
         $ cd myproject
@@ -36,23 +36,23 @@ Second, configure your server data. This needs to be done once per project.
         }
 
         $ data server list
-        
+
         prevoiuslyConfiguredServer
         localServer1
-        
-        $ data server use localServer1 
+
+        $ data server use localServer1
         $ data server using
-        
+
         localServer1
-        
+
         $ data server show
-        
+
         {
             "dsn": "mysql:host=127.0.0.1;dbname=test;charset=UTF-8",
             "user": "root",
             "pass": "secret"
         }
-        
+
         $ data server leave
 
 Bootstrap:

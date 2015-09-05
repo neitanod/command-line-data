@@ -1,4 +1,4 @@
-<?php 
+<?php
 if(!defined("WORKING_PATH")) define("WORKING_PATH", getcwd());
 
 require_once(dirname(__FILE__).'/DataConfig.class.php');
@@ -6,8 +6,8 @@ require_once(dirname(__FILE__).'/traitMultipleton.trait.php');
 require_once(dirname(__FILE__).'/traitDataInstance.trait.php');
 
 class DataServer {
-  use traitMultipleton; 
-  use traitDataInstance; 
+  use traitMultipleton;
+  use traitDataInstance;
 
   public function runList(){
     $servers = $this->config()->get('server');
@@ -43,7 +43,7 @@ class DataServer {
   public function using(){
     return $this->instanceData()->get('server-using');
   }
-  
+
   public function details(){
     return $this->config()->get('server.'.$this->using());
   }
@@ -53,5 +53,4 @@ class DataServer {
     return 1;
   }
 
-  
 }

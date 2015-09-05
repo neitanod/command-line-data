@@ -1,10 +1,10 @@
-<?php 
+<?php
 if(!defined("WORKING_PATH")) define("WORKING_PATH", getcwd());
 
 require_once(dirname(__FILE__).'/traitMultipleton.trait.php');
 
 class DataConfig {
-  use traitMultipleton; 
+  use traitMultipleton;
 
   protected $working_path = WORKING_PATH;
   protected $working_file = 'data.conf';
@@ -30,11 +30,11 @@ class DataConfig {
       echo json_encode($value, JSON_PRETTY_PRINT)."\n";
     }
   }
-  
+
   public function runRemove($path){
     $this->remove($path);
   }
-  
+
   public function runShow($path = NULL){
     echo json_encode($this->config, JSON_PRETTY_PRINT)."\n";
   }
@@ -54,7 +54,7 @@ class DataConfig {
     }
     return $this->working_path.'/'.$this->working_file;
   }
-  
+
   public function loadCurrentConfig(){
     if(is_readable($this->currentConfigFilePath())) {
       $current = json_decode(file_get_contents($this->currentConfigFilePath()), true);
@@ -111,7 +111,7 @@ class DataConfig {
       if(is_string($path)) {
         return $this->showError("Can't set subkey of a string");
       }
-      if(!isset($path[$key])) $path[$key] = array(); 
+      if(!isset($path[$key])) $path[$key] = array();
       $path = &$path[$key];
     }
     $path = $value;
@@ -125,19 +125,19 @@ class DataConfig {
       if(is_string($path)) {
         return $this->showError("Can't set subkey of a string");
       }
-      if(!isset($path[$key])) $path[$key] = array(); 
+      if(!isset($path[$key])) $path[$key] = array();
       $path = &$path[$key];
     }
-    if(is_array($path)) { 
+    if(is_array($path)) {
       $path[] = $value;
     } else {
       return $this->showError("Element is not an array.  Can't add an entry.");
     }
     $this->saveCurrentConfig();
   }
-  
+
   public function remove($keys) {
-    $keys = explode(".", $keys); 
+    $keys = explode(".", $keys);
 
     $this->unset_($this->config, $keys);
     $this->saveCurrentConfig();
@@ -146,14 +146,14 @@ class DataConfig {
   protected function unset_(&$array, $keys) {
     $localkeys = $keys;
     $local_key = array_shift($localkeys);
-    
+
     if(count($localkeys) < 1 ) { // This is the value we want to remove
       unset($array[$local_key]);
       return;
-    } 
-    
+    }
+
     $this->unset_($array[$local_key], $localkeys);  // Recurse into
-  
+
     if(count($array[$local_key]) < 1 ) {  // Is the branch empty now?
       unset($array[$local_key]);
       return;
